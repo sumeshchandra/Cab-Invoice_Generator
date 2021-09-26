@@ -54,7 +54,26 @@ public class InvoiceServiceTest {
         Assertions.assertEquals(expectedInvoiceSummary, summary);
     }
 
+    @Test
+    public void givenNormalRide_ShouldReturnInvoiceSummary() {
+        Ride[] ride = {
+                new Ride(5, 10),
+                new Ride(4, 5),
+        };
+        InvoiceSummary fare = invoiceGenerator.fare(ride, RideType.NORMAL);
+        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 105);
+        Assertions.assertEquals(expectedInvoiceSummary, fare);
+    }
 
+    @Test
+    public void givenPremiumsRide_ShouldReturnInvoiceSummary() {
+        Ride[] rides = {new Ride(5, 10),
+                new Ride(4, 5)
+        };
+        InvoiceSummary fare = invoiceGenerator.fare(rides, RideType.PREMIUM);
+        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 165.0);
+        Assertions.assertEquals(expectedInvoiceSummary , fare);
+    }
 }
 
 

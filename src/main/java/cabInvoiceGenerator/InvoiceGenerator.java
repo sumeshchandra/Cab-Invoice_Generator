@@ -32,6 +32,21 @@ public class InvoiceGenerator {
         return new InvoiceSummary(ridesForUser.length, totalFare);
     }
 
+    public InvoiceSummary fare(Ride[] rides, RideType rideType) {
+        double totalFare = 0;
+        for (Ride ride: rides) {
+            totalFare += this.calculateFare(ride.distance,ride.time,rideType);
+        }
+        return new InvoiceSummary(rides.length, totalFare);
+    }
+
+    private double calculateFare(double distance, int time, RideType rideType) {
+        double totalFare = distance * rideType.MINIMUM_COST_PER_KM + time * rideType.COST_PER_MINUTE;
+        if (totalFare < rideType.MINIMUM_FARE)
+            return rideType.MINIMUM_FARE;
+        return totalFare;
+    }
+
     public InvoiceGenerator() {
         this.ridesRepository = new RidesRepository();
     }
@@ -44,4 +59,9 @@ public class InvoiceGenerator {
         return calculationFare(ridesRepository.getRidesForUser(userId));
     }
 
+
 }
+
+
+
+
