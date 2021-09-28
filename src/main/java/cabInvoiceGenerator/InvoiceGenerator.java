@@ -15,14 +15,6 @@ public class InvoiceGenerator {
         return totalFare;
     }
 
-    public double calculateFare(Ride[] ride) {
-        double totalFare = 0;
-        for (Ride rides : ride) {
-            totalFare += this.calculateFare(rides.distance, rides.time);
-        }
-        return totalFare;
-    }
-
     public InvoiceSummary calculationFare(Ride[] ridesForUser) {
         double totalFare = 0;
         for (Ride rides : ridesForUser) {
@@ -55,8 +47,8 @@ public class InvoiceGenerator {
         ridesRepository.addRideForUser(userId, rides);
     }
 
-    public InvoiceSummary invoiceForUser(String userId) {
-        return calculationFare(ridesRepository.getRidesForUser(userId));
+    public InvoiceSummary getInvoiceForUser(String userId) {
+        return this.calculationFare(ridesRepository.getRidesForUser(userId));
     }
 
 

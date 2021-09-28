@@ -43,13 +43,14 @@ public class InvoiceServiceTest {
 
     @Test
     void givenUserId_ShouldReturnInvoiceSummary() {
-        Ride[] rides = {new Ride(2.0, 5),  // 2*10 + 5
-                new Ride(5, 1),  // 5 * 10 +1
-                new Ride(6, 1),
+        Ride[] rides = {
+                new Ride(2.0, 5),  // 2*10 + 5
+                new Ride(5.0, 1),  // 5 * 10 +1
+                new Ride(6.0, 1),
         };
         String userId = "Sumesh";
         invoiceGenerator.addRides(userId, rides);
-        InvoiceSummary summary = invoiceGenerator.invoiceForUser(userId);
+        InvoiceSummary summary = invoiceGenerator.getInvoiceForUser(userId);
         InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(3, 137);
         Assertions.assertEquals(expectedInvoiceSummary, summary);
     }
@@ -67,7 +68,8 @@ public class InvoiceServiceTest {
 
     @Test
     public void givenPremiumsRide_ShouldReturnInvoiceSummary() {
-        Ride[] rides = {new Ride(5, 10),
+        Ride[] rides = {
+                new Ride(5, 10),
                 new Ride(4, 5)
         };
         InvoiceSummary fare = invoiceGenerator.fare(rides, RideType.PREMIUM);
